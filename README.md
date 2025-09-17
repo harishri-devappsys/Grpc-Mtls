@@ -2,22 +2,25 @@
 
 This project shows how to secure a gRPC service with Mutual TLS (mTLS) using your own private Certificate Authority (CA). First, you create a CA (the “issuer of trust”) and then generate certificates for both the server and client, signed by that CA. The server gets its certificate and private key, and the client gets its own. Both also keep a copy of the CA’s certificate so they can verify each other. When the server and client connect, they exchange certificates: the client only trusts the server if its certificate is signed by the CA, and the server only accepts the client if its certificate is signed by the same CA. If both checks pass, communication is established securely—otherwise, it’s blocked.
 
-## How It All Works (The Core Idea)
+## How It Works (Core Concept)
 
-Imagine a top-secret private club. You can't just show up and get in.
+1. **Certificate Authority (CA):**  
+   The CA acts as the trusted authority that issues and signs certificates for both the server and the client. Only certificates signed by this CA are considered valid.
 
-1.  **The Club Owner (Our Certificate Authority):** There's one person—the club owner—who issues special, unforgeable ID cards. This is our **CA**.
-2.  **The Bouncer (The gRPC Server):** The bouncer at the door has an official ID card from the owner. This is the **server certificate**. When you walk up, the bouncer shows you their ID to prove they're legit.
-3.  **You (The gRPC Client):** You also have a special ID card from the same club owner. This is the **client certificate**.
-4.  **The Handshake (mTLS):**
-    * You show up at the club. The bouncer shows you their ID (`server.crt`). You check it and see it was signed by the club owner (`ca.crt`), so you trust them.
-    * Now, the bouncer demands to see *your* ID (`client.crt`).
-    * The bouncer checks your ID and sees it was *also* signed by the club owner (`ca.crt`). They trust you.
-    * The door opens, and you can communicate securely.
+2. **gRPC Server:**  
+   The server holds a certificate issued by the CA (the *server certificate*). This allows the client to verify the server’s identity.
 
-If either side presents an ID from a different "club owner" (another CA) or has no ID at all, the connection is immediately rejected.
+3. **gRPC Client:**  
+   The client also holds a certificate issued by the same CA (the *client certificate*). This allows the server to verify the client’s identity.
 
+4. **Mutual TLS Handshake (mTLS):**
+    - The client connects to the server and receives the server’s certificate (`server.crt`).
+    - The client verifies that this certificate was signed by the trusted CA (`ca.crt`).
+    - The server then requests the client’s certificate (`client.crt`).
+    - The server verifies that the client’s certificate was also signed by the trusted CA.
+    - If both verifications succeed, a secure, mutually authenticated channel is established.
 
+If either the client or server presents a certificate that is missing, invalid, or signed by an untrusted CA, the connection is immediately rejected.
 
 ---
 
