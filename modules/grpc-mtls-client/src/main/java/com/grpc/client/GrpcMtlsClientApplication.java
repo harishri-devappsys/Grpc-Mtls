@@ -3,13 +3,14 @@ package com.grpc.client;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
+@EnableConfigurationProperties(GrpcClientProperties.class)
 @SpringBootApplication
 public class GrpcMtlsClientApplication implements CommandLineRunner {
 
     private final GreetingClientService greetingClientService;
 
-    // Spring injects our client service
     public GrpcMtlsClientApplication(GreetingClientService greetingClientService) {
         this.greetingClientService = greetingClientService;
     }

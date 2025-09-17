@@ -15,18 +15,24 @@ import java.io.IOException;
 @Configuration
 public class GrpcClientConfig {
 
+    private final GrpcClientProperties properties;
+
+    public GrpcClientConfig(GrpcClientProperties properties) {
+        this.properties = properties;
+    }
+
     @Bean
     public GreetingServiceGrpc.GreetingServiceBlockingStub greetingServiceBlockingStub() throws IOException, SSLException {
-        ClassPathResource trustCertCollection = new ClassPathResource("certs/ca.crt");
-        ClassPathResource clientCertChain = new ClassPathResource("certs/client.crt");
-        ClassPathResource clientPrivateKey = new ClassPathResource("certs/client.p8.key");
+        ClassPathResource trustCertCollection = new ClassPathResource(properties.getTrustCertPath());
+        ClassPathResource clientCertChain = new ClassPathResource(properties.getClientCertPath());
+        ClassPathResource clientPrivateKey = new ClassPathResource(properties.getClientKeyPath());
 
         SslContext sslContext = GrpcSslContexts.forClient()
                 .trustManager(trustCertCollection.getInputStream())
                 .keyManager(clientCertChain.getInputStream(), clientPrivateKey.getInputStream())
                 .build();
 
-        ManagedChannel channel = NettyChannelBuilder.forAddress("localhost", 9090)
+        ManagedChannel channel = NettyChannelBuilder.forAddress(properties.getAddress(), properties.getPort())
                 .sslContext(sslContext)
                 .build();
 
