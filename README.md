@@ -125,7 +125,7 @@ If everything is configured correctly, your client terminal will spring to life 
 Sending request to server with name: Gemini
 
 --- RESPONSE FROM SERVER ---
-Hello, Gemini! Your request was secured with mTLS. 🛡️
+Hello, Devappsys! Your request was secured with mTLS. 🛡️
 ----------------------------
 
 BUILD SUCCESSFUL

@@ -1,4 +1,3 @@
-# Server port configuration
 grpc:
   server:
     port: 9090
@@ -9,9 +8,7 @@ grpc:
       private-key: "classpath:certs/server.p8.key"
       # --- Configure mTLS ---
       client-auth: REQUIRE # This enforces client certificate authentication
-      # The CA certificate used to verify the client's certificate
       trust-cert-collection: "classpath:certs/ca.crt"
 
-# Spring Boot app configuration
 server:
-  port: 8080 # Port for standard HTTP (e.g., Actuator), not used by gRPC
+  port: 8080
