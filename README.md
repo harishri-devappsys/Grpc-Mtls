@@ -1,8 +1,3 @@
-Of course\! A good `README.md` is essential. Here’s a version written as if by a developer for other developers. It explains the concepts from the ground up and provides clear, copy-pastable instructions to get everything running smoothly.
-
------
-
-````markdown
 # gRPC Mutual TLS (mTLS) with a Private CA 🛡️
 
 Hey there! This project is a hands-on Proof of Concept (POC) demonstrating how to secure a gRPC service using **Mutual TLS (mTLS)** with your very own private **Certificate Authority (CA)**.
@@ -47,7 +42,7 @@ Follow these steps from the root directory of the project (`mtls/`).
 This is the most important step. We'll create a temporary folder, generate all the crypto files there, and then copy them where they need to go.
 
 Run this entire block in your terminal from the project root:
-
+````markdown
 ```bash
 # Create a clean, temporary directory for our crypto files
 mkdir -p temp-certs
