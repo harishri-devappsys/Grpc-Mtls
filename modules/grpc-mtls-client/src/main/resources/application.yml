@@ -1,0 +1,18 @@
+# Client connection and security configuration
+grpc:
+  client:
+    # 'greeting-service' is a custom name for this client channel configuration
+    greeting-service:
+      address: 'static://localhost:9090'
+      negotiation-type: tls
+      security:
+        # The CA certificate used to verify the SERVER's certificate
+        trust-cert-collection: "classpath:certs/ca.crt"
+        # --- Client's own certificate and key (for mTLS) ---
+        client-cert-chain: "classpath:certs/client.crt"
+        client-private-key: "classpath:certs/client.p8.key"
+
+# Disable the gRPC server in the client application
+spring:
+  main:
+    web-application-type: none # This is a command-line client, not a web server
