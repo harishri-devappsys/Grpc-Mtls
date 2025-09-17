@@ -20,8 +20,7 @@ public class GrpcMtlsClientApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        // This method runs after the application starts
-        String response = greetingClientService.receiveGreeting("Gemini");
+        String response = greetingClientService.receiveGreeting("Devappsys");
 
         System.out.println("\n--- RESPONSE FROM SERVER ---");
         System.out.println(response);

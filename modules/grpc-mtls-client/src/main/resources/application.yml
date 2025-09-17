@@ -1,7 +1,6 @@
 # Client connection and security configuration
 grpc:
   client:
-    # 'greeting-service' is a custom name for this client channel configuration
     greeting-service:
       address: 'static://localhost:9090'
       negotiation-type: tls
