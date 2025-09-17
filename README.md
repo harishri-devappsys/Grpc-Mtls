@@ -122,7 +122,7 @@ Wait for the server to start. You'll see the log message:
 If everything is configured correctly, your client terminal will spring to life and show the successful response from the server\!
 
 ```text
-Sending request to server with name: Gemini
+Sending request to server with name: Devappsys
 
 --- RESPONSE FROM SERVER ---
 Hello, Devappsys! Your request was secured with mTLS. 🛡️
