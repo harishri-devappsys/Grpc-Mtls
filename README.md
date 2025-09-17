@@ -1,8 +1,6 @@
 # gRPC Mutual TLS (mTLS) with a Private CA 🛡️
 
-Hey there! This project is a hands-on Proof of Concept (POC) demonstrating how to secure a gRPC service using **Mutual TLS (mTLS)** with your very own private **Certificate Authority (CA)**.
-
-This isn't just about standard encryption (like when your browser connects to a website). This is a zero-trust setup where the server only talks to clients it trusts, and the client only talks to the server it trusts. Both sides must prove their identity using cryptographic certificates issued by our private CA.
+This project shows how to secure a gRPC service with Mutual TLS (mTLS) using your own private Certificate Authority (CA). First, you create a CA (the “issuer of trust”) and then generate certificates for both the server and client, signed by that CA. The server gets its certificate and private key, and the client gets its own. Both also keep a copy of the CA’s certificate so they can verify each other. When the server and client connect, they exchange certificates: the client only trusts the server if its certificate is signed by the CA, and the server only accepts the client if its certificate is signed by the same CA. If both checks pass, communication is established securely—otherwise, it’s blocked.
 
 ## How It All Works (The Core Idea)
 
@@ -128,9 +126,4 @@ Hello, Gemini! Your request was secured with mTLS. 🛡️
 ----------------------------
 
 BUILD SUCCESSFUL
-```
-
-Pretty cool, right? You've just run a fully authenticated, zero-trust communication channel between two services. Happy hacking\!
-
-```
 ```
